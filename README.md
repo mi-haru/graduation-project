@@ -311,3 +311,8 @@ CSSフレームワーク：Tailwind CSS
 
 また、MVPでは必要な機能に絞り、優先順位をつけて開発することで、技術習得に時間をかけすぎず、まずはサービスを完成させることを目指します。
 
+---
+
+## 画面遷移図
+
+https://www.figma.com/design/YG7Hi2FPXYN614JZCyA0NT/%E7%84%A1%E9%A1%8C?node-id=0-1&t=o7hG484Dt8ycV8Ju-1
