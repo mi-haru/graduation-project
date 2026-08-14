@@ -313,6 +313,6 @@ CSSフレームワーク：Tailwind CSS
 
 ---
 
-## ER図
+## 画面遷移図
 
 https://www.figma.com/design/YG7Hi2FPXYN614JZCyA0NT/%E7%84%A1%E9%A1%8C?node-id=0-1&t=o7hG484Dt8ycV8Ju-1
