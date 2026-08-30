@@ -5,7 +5,7 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
     assert_difference("User.count", 1) do
       post user_registration_path, params: {
         user: {
-          name: "テストユーザー",
+          nickname: "テストユーザー",
           email: "new-user@example.com",
           password: "password123",
           password_confirmation: "password123"
@@ -13,7 +13,7 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_equal "テストユーザー", User.last.name
+    assert_equal "テストユーザー", User.last.nickname
     assert_redirected_to root_path
   end
 end
