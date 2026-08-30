@@ -1,0 +1,74 @@
+<div class="medisu-page flex items-center justify-center px-4 py-12">
+  <%= render "shared/page_decorations" %>
+
+    <div class="medisu-card w-full max-w-md p-8 sm:p-10">
+    <div class="mb-8 text-center">
+      <%= link_to root_path, class: "inline-block" do %>
+        <%= image_tag "logo.png", alt: "medi巣", class: "mx-auto h-20 w-auto" %>
+      <% end %>
+
+      <h1 class="mt-6 text-2xl font-bold text-[#344a39]">
+        新規登録
+      </h1>
+
+      <p class="mt-2 text-sm text-gray-500">
+        medi巣をはじめましょう
+      </p>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+
+      <div class="mb-5">
+        <%= f.label :name, "ユーザー名",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+        <%= f.text_field :name,
+                         autofocus: true,
+                         autocomplete: "name",
+                         class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <div class="mb-5">
+        <%= f.label :email, "メールアドレス",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+        <%= f.email_field :email,
+                          autocomplete: "email",
+                          class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <div class="mb-5">
+        <%= f.label :password, "パスワード",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+
+        <% if @minimum_password_length %>
+          <p class="mb-2 text-xs text-gray-500">
+            <%= @minimum_password_length %>文字以上で入力してください
+          </p>
+        <% end %>
+
+        <%= f.password_field :password,
+                             autocomplete: "new-password",
+                             class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <div class="mb-7">
+        <%= f.label :password_confirmation, "パスワード（確認）",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+        <%= f.password_field :password_confirmation,
+                             autocomplete: "new-password",
+                             class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <%= f.submit "登録する",
+                   class: "w-full cursor-pointer rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+    <% end %>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      すでにアカウントをお持ちですか？
+      <%= link_to "ログイン",
+                  new_user_session_path,
+                  class: "font-bold text-[#4a654f] hover:underline" %>
+    </p>
+  </div>
+</div>
