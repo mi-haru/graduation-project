@@ -14,6 +14,6 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal "テストユーザー", User.last.nickname
-    assert_redirected_to root_path
+    assert_redirected_to home_path
   end
 end
