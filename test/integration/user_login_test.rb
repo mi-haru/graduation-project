@@ -18,7 +18,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to root_path
+    assert_redirected_to home_path
 
     follow_redirect!
 
