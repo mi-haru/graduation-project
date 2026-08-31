@@ -1,19 +1,48 @@
-<h2>Log in</h2>
+<div class="medisu-page flex items-center justify-center px-4 py-12">
+  <%= render "shared/page_decorations" %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+  <div class="medisu-card w-full max-w-md p-8 sm:p-10">
+    <div class="mb-8 text-center">
+      <%= link_to root_path, class: "inline-block" do %>
+        <%= image_tag "logo.png", alt: "medi巣", class: "mx-auto h-20 w-auto" %>
+      <% end %>
+
+      <h1 class="mt-6 text-2xl font-bold text-[#344a39]">
+        ログイン
+      </h1>
+
+      <p class="mt-2 text-sm text-gray-500">
+        medi巣へおかえりなさい
+      </p>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-5">
+        <%= f.label :email, "メールアドレス",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+        <%= f.email_field :email,
+                          autofocus: true,
+                          autocomplete: "email",
+                          class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <div class="mb-7">
+        <%= f.label :password, "パスワード",
+                    class: "mb-2 block text-sm font-bold text-[#344a39]" %>
+        <%= f.password_field :password,
+                             autocomplete: "current-password",
+                             class: "w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#4a654f] focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <%= f.submit "ログイン",
+                   class: "w-full cursor-pointer rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+    <% end %>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      アカウントをお持ちでない方は
+      <%= link_to "新規登録",
+                  new_user_registration_path,
+                  class: "font-bold text-[#4a654f] hover:underline" %>
+    </p>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

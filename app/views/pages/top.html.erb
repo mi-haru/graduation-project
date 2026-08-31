@@ -38,18 +38,12 @@
             new_user_registration_path,
             class: "rounded-full bg-[#4a654f] px-8 py-4 font-bold text-white transition hover:bg-[#3c5341]" %>
 
-          <button
-            type="button"
-            disabled
-            class="cursor-not-allowed rounded-full border border-[#4a654f]/30 bg-[#fff8f3] px-8 py-4 font-bold text-[#4a654f] opacity-70"
-          >
-            ログイン
-          </button>
+          <%= link_to "ログイン",
+            new_user_session_path,
+            class: "rounded-full border border-[#4a654f]/30 bg-[#fff8f3] px-8 py-4 font-bold text-[#4a654f] transition hover:bg-[#f0e7dc]" %>
+
         </div>
 
-        <p class="mt-4 text-sm text-[#737972]">
-          新規登録・ログイン機能は現在準備中です
-        </p>
       </section>
 
       <section class="medisu-card p-7">
