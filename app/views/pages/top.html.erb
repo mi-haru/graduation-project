@@ -1,6 +1,5 @@
-<main class="relative min-h-screen overflow-hidden bg-[#fff8f3] px-6 py-8 text-[#1f1b15]">
-  <div class="absolute -right-24 -top-32 h-80 w-80 rounded-full bg-[#f0e7dc]"></div>
-  <div class="absolute -bottom-28 -left-20 h-52 w-52 rounded-full bg-[#8daa91]/20"></div>
+<main class="medisu-page px-6 py-8">
+  <%= render "shared/page_decorations" %>
 
   <div class="relative mx-auto max-w-6xl">
     <header class="flex items-center gap-3">
@@ -35,29 +34,19 @@
         </div>
 
         <div class="mt-8 flex flex-wrap gap-4">
-          <button
-            type="button"
-            disabled
-            class="cursor-not-allowed rounded-full bg-[#4a654f] px-8 py-4 font-bold text-white opacity-70"
-          >
-            新規登録
-          </button>
+          <%= link_to "新規登録",
+            new_user_registration_path,
+            class: "rounded-full bg-[#4a654f] px-8 py-4 font-bold text-white transition hover:bg-[#3c5341]" %>
 
-          <button
-            type="button"
-            disabled
-            class="cursor-not-allowed rounded-full border border-[#4a654f]/30 bg-[#fff8f3] px-8 py-4 font-bold text-[#4a654f] opacity-70"
-          >
-            ログイン
-          </button>
+          <%= link_to "ログイン",
+            new_user_session_path,
+            class: "rounded-full border border-[#4a654f]/30 bg-[#fff8f3] px-8 py-4 font-bold text-[#4a654f] transition hover:bg-[#f0e7dc]" %>
+
         </div>
 
-        <p class="mt-4 text-sm text-[#737972]">
-          新規登録・ログイン機能は現在準備中です
-        </p>
       </section>
 
-      <section class="relative overflow-hidden rounded-[3rem] border border-[#4a654f]/10 bg-white p-7 shadow-xl shadow-[#715a3e]/10">
+      <section class="medisu-card p-7">
         <div class="absolute -right-12 -top-14 h-36 w-36 rounded-full bg-[#f0e7dc]/70"></div>
 
         <div class="relative mb-6 flex items-center gap-4">
@@ -105,8 +94,8 @@
           </div>
 
           <div class="flex items-center gap-4 rounded-[1.75rem] bg-[#fff8f3] p-4">
-            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#cceacf] text-xl font-bold text-[#334d38]">
-              □
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#cceacf] text-[#334d38]">
+              <%= render "shared/icons/calendar" %>
             </span>
 
             <div class="flex-1">

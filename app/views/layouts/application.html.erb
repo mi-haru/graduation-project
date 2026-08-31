@@ -18,6 +18,24 @@
   </head>
 
   <body>
-    <%= yield %>
+  <% if notice.present? %>
+    <div
+      role="status"
+      class="fixed left-1/2 top-6 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 rounded-2xl border border-[#4a654f]/20 bg-[#edf5ee] px-5 py-4 text-center font-bold text-[#344a39] shadow-lg"
+    >
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <% if alert.present? %>
+    <div
+      role="alert"
+      class="fixed left-1/2 top-6 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-center font-bold text-red-700 shadow-lg"
+    >
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <%= yield %>
   </body>
 </html>

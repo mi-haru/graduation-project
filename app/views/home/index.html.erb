@@ -1,0 +1,155 @@
+<div class="medisu-page px-4 py-6 sm:px-6">
+  <%= render "shared/page_decorations" %>
+
+  <div class="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[18rem_1fr]">
+    <aside class="medisu-card flex flex-col p-6 lg:min-h-[calc(100vh-3rem)]">
+      <div>
+        <%= link_to home_path, class: "inline-block" do %>
+          <%= image_tag "logo.png", alt: "medi巣", class: "h-16 w-auto" %>
+        <% end %>
+
+        <div class="mt-8">
+          <h2 class="text-2xl font-bold text-[#344a39]">
+            おかえりなさい
+          </h2>
+
+          <p class="mt-2 text-sm leading-6 text-gray-600">
+            <%= current_user.nickname %>さんの巣は<br>
+            今日も整っています
+          </p>
+        </div>
+
+        <nav class="mt-8 space-y-3" aria-label="メインメニュー">
+          <%= link_to home_path,
+                      class: "block rounded-2xl bg-[#8daa91] px-5 py-4 font-bold text-white" do %>
+            ホーム
+          <% end %>
+
+          <button
+            type="button"
+            disabled
+            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
+          >
+            服薬管理
+            <span class="ml-2 text-xs font-normal">準備中</span>
+          </button>
+
+          <button
+            type="button"
+            disabled
+            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
+          >
+            受診予定
+            <span class="ml-2 text-xs font-normal">準備中</span>
+          </button>
+
+          <button
+            type="button"
+            disabled
+            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
+          >
+            プロフィール設定
+            <span class="ml-2 text-xs font-normal">準備中</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="mt-8 border-t border-[#4a654f]/10 pt-5 lg:mt-auto">
+        <%= button_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              form: { class: "w-full" },
+              class: "w-full rounded-2xl border border-[#4a654f]/20 px-5 py-3 text-left font-bold text-[#4a654f] transition hover:bg-[#f0e7dc]" %>
+      </div>
+    </aside>
+
+    <main>
+      <header class="mb-6 px-2 py-3">
+        <h1 class="text-3xl font-bold text-[#1f1b15] sm:text-4xl">
+          今日の状況
+        </h1>
+
+        <p class="mt-2 text-gray-600">
+          <%= I18n.l(Date.current, format: "%-m月%-d日") %>
+          ・穏やかな一日になりますように
+        </p>
+      </header>
+
+      <div class="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.9fr)]">
+        <section class="medisu-card p-7 sm:p-9">
+          <p class="text-sm font-bold text-[#8daa91]">
+            今日の記録
+          </p>
+
+          <div class="mt-2 flex flex-wrap items-center justify-between gap-4">
+            <h2 class="text-2xl font-bold text-[#344a39]">
+              今日のお薬
+            </h2>
+
+            <span class="rounded-full bg-[#f0e7dc] px-4 py-2 text-sm font-bold text-[#715a3e]">
+              未登録
+            </span>
+          </div>
+
+          <div class="mt-7 rounded-3xl bg-[#fff8f3] p-6">
+            <p class="font-bold text-[#344a39]">
+              服薬情報はまだありません
+            </p>
+
+            <p class="mt-2 text-sm leading-6 text-gray-600">
+              お薬を登録すると、今日服用するお薬がここに表示されます。
+            </p>
+          </div>
+
+          <button
+            type="button"
+            disabled
+            class="mt-6 w-full cursor-not-allowed rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white opacity-60"
+          >
+            お薬を登録する（準備中）
+          </button>
+        </section>
+
+        <div class="space-y-6">
+          <section class="medisu-card p-7">
+            <p class="text-sm font-bold text-[#8daa91]">
+              スケジュール
+            </p>
+
+            <h2 class="mt-2 text-2xl font-bold text-[#344a39]">
+              次回の受診予定
+            </h2>
+
+            <div class="mt-6 rounded-3xl bg-[#f0e7dc]/70 p-6 text-center">
+              <p class="font-bold text-[#344a39]">
+                受診予定はありません
+              </p>
+
+              <p class="mt-2 text-sm text-gray-600">
+                登録すると日時と病院名が表示されます。
+              </p>
+            </div>
+
+            <button
+              type="button"
+              disabled
+              class="mt-5 w-full cursor-not-allowed rounded-full border border-[#4a654f]/30 px-6 py-3 font-bold text-[#4a654f] opacity-60"
+            >
+              受診予定を登録する（準備中）
+            </button>
+          </section>
+
+          <section class="rounded-[3rem] bg-[#4a654f] p-8 text-center text-white shadow-xl shadow-[#715a3e]/10">
+            <p class="text-3xl" aria-hidden="true">
+              ❀
+            </p>
+
+            <p class="mt-3 text-lg font-bold">
+              少しずつ、自分のペースで。
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
