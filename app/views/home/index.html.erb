@@ -55,13 +55,11 @@
       </div>
 
       <div class="mt-8 border-t border-[#4a654f]/10 pt-5 lg:mt-auto">
-        <button
-          type="button"
-          disabled
-          class="w-full cursor-not-allowed rounded-2xl border border-[#4a654f]/20 px-5 py-3 text-left font-bold text-[#4a654f] opacity-60"
-        >
-          ログアウト（準備中）
-        </button>
+        <%= button_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              form: { class: "w-full" },
+              class: "w-full rounded-2xl border border-[#4a654f]/20 px-5 py-3 text-left font-bold text-[#4a654f] transition hover:bg-[#f0e7dc]" %>
       </div>
     </aside>
 
