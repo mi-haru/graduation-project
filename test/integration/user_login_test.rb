@@ -38,4 +38,17 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert_select "[role='alert']",
                   text: "メールアドレスまたはパスワードが正しくありません。"
   end
+
+  test "未登録メールアドレスでは日本語のエラーを表示する" do
+    post user_session_path, params: {
+      user: {
+        email: "not-registered@example.com",
+        password: "password123"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_select "[role='alert']",
+                  text: "メールアドレスまたはパスワードが正しくありません。"
+end
 end
