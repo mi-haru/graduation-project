@@ -1,0 +1,15 @@
+<% content_for :content do %>
+  <div class="medisu-page px-4 py-6 sm:px-6">
+    <%= render "shared/page_decorations" %>
+
+    <div class="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[18rem_1fr]">
+      <%= render "shared/sidebar" %>
+
+      <main>
+        <%= yield %>
+      </main>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>
