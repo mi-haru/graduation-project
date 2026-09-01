@@ -8,5 +8,6 @@ ja:
       invalid: "メールアドレスまたはパスワードが正しくありません。"
       unauthenticated: "ログインしてください。"
       already_authenticated: "すでにログインしています。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
     registrations:
       signed_up: "アカウント登録が完了しました。"
