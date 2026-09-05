@@ -16,19 +16,16 @@
         </div>
 
         <nav class="mt-8 space-y-3" aria-label="メインメニュー">
-          <%= link_to home_path,
-                      class: "block rounded-2xl bg-[#8daa91] px-5 py-4 font-bold text-white" do %>
-            ホーム
-          <% end %>
 
-          <button
-            type="button"
-            disabled
-            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
-          >
-            服薬管理
-            <span class="ml-2 text-xs font-normal">準備中</span>
-          </button>
+        <%= link_to home_path,
+                    class: "block rounded-2xl px-5 py-4 font-bold transition #{current_page?(home_path) ? 'bg-[#8daa91] text-white' : 'text-[#344a39] hover:bg-[#edf5ee]'}" do %>
+          ホーム
+        <% end %>
+
+        <%= link_to medications_path,
+                    class: "block rounded-2xl px-5 py-4 font-bold transition #{current_page?(medications_path) ? 'bg-[#8daa91] text-white' : 'text-[#344a39] hover:bg-[#edf5ee]'}" do %>
+          服薬管理
+        <% end %>
 
           <button
             type="button"
