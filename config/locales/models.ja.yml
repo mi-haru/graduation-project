@@ -1,0 +1,25 @@
+ja:
+  enums:
+    medication_timing:
+      meal_timing:
+        unspecified: "指定なし"
+        before_meal: "食前"
+        after_meal: "食後"
+        between_meals: "食間"
+        immediately_before_meal: "食直前"
+
+  activerecord:
+    attributes:
+      medication:
+        name: "薬名"
+        dosage: "1回の服用量"
+        start_date: "服薬開始日"
+        end_date: "服薬終了日"
+    errors:
+      messages:
+        blank: "を入力してください"
+      models:
+        medication:
+          attributes:
+            end_date:
+              before_start_date: "は服薬開始日以降の日付を入力してください"
