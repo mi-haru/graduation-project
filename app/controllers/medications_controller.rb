@@ -2,6 +2,7 @@ class MedicationsController < ApplicationController
   layout "authenticated"
 
   before_action :authenticate_user!
+  before_action :set_medication, only: %i[show edit update]
 
   def index
     @medications = current_user.medications.order(start_date: :desc)
@@ -26,7 +27,54 @@ class MedicationsController < ApplicationController
     end
   end
 
+  def show
+    redirect_to edit_medication_path(@medication)
+  end
+
+  def edit
+    @time_periods = TimePeriod.ordered
+
+    timings = @medication.medication_timings.to_a
+
+    @selected_time_period_ids =
+      timings.map { |timing| timing.time_period_id.to_s }
+
+    @meal_timing =
+      timings.first&.meal_timing || "unspecified"
+  end
+
+  def update
+    @medication.assign_attributes(medication_params)
+    prepare_timing_form
+
+    medication_valid = @medication.valid?
+    timing_valid = timing_selection_valid?
+
+    unless medication_valid && timing_valid
+      render :edit, status: :unprocessable_content
+      return
+    end
+
+    begin
+      Medication.transaction do
+        @medication.medication_timings.destroy_all
+        build_medication_timings
+        @medication.save!
+      end
+    rescue ActiveRecord::RecordInvalid
+      render :edit, status: :unprocessable_content
+      return
+    end
+
+    redirect_to medications_path,
+                notice: t("medications.notices.updated")
+  end
+
   private
+
+  def set_medication
+    @medication = current_user.medications.find(params[:id])
+  end
 
   def medication_params
     params.require(:medication).permit(
