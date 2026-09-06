@@ -13,6 +13,8 @@ ja:
     heading: "お薬の管理"
     new:
       title: "薬の登録"
+    edit:
+      title: "服薬情報の詳細・編集"
     form:
       error_heading: "入力内容を確認してください"
       name_placeholder: "例：ロキソニン"
@@ -24,6 +26,7 @@ ja:
       end_date_optional: "服薬終了日（任意）"
     notices:
       created: "服薬情報を登録しました。"
+      updated: "服薬情報を更新しました。"
     errors:
       time_period_required: "服薬タイミングを1つ以上選択してください。"
       time_period_invalid: "服薬タイミングを正しく選択してください。"
