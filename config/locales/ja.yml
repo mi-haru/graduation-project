@@ -2,3 +2,29 @@ ja:
   date:
     formats:
       default: "%Y年%-m月%-d日"
+
+  actions:
+    create: "登録する"
+    update: "更新する"
+    cancel: "キャンセル"
+    back_to_index: "一覧へ戻る"
+
+  medications:
+    heading: "お薬の管理"
+    new:
+      title: "薬の登録"
+    form:
+      error_heading: "入力内容を確認してください"
+      name_placeholder: "例：ロキソニン"
+      dosage_placeholder: "例：1錠"
+      meal_timing_label: "食事に合わせた服用タイミング"
+      meal_timing_hint: "食事を基準に、いつ飲むかを選んでください。"
+      time_period_label: "服薬タイミング"
+      time_period_hint: "複数選択できます"
+      end_date_optional: "服薬終了日（任意）"
+    notices:
+      created: "服薬情報を登録しました。"
+    errors:
+      time_period_required: "服薬タイミングを1つ以上選択してください。"
+      time_period_invalid: "服薬タイミングを正しく選択してください。"
+      meal_timing_invalid: "食事との関係を正しく選択してください。"

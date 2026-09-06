@@ -1,15 +1,21 @@
-<header class="mb-6 px-2 py-3">
-  <p class="text-sm font-bold text-[#8daa91]">
-    お薬の管理
-  </p>
+<header class="mb-6 flex flex-wrap items-end justify-between gap-4 px-2 py-3">
+  <div>
+    <p class="text-sm font-bold text-[#8daa91]">
+      お薬の管理
+    </p>
 
-  <h1 class="mt-2 text-3xl font-bold text-[#1f1b15] sm:text-4xl">
-    服薬情報
-  </h1>
+    <h1 class="mt-2 text-3xl font-bold text-[#1f1b15] sm:text-4xl">
+      服薬情報
+    </h1>
 
-  <p class="mt-2 text-gray-600">
-    登録しているお薬を確認できます。
-  </p>
+    <p class="mt-2 text-gray-600">
+      登録しているお薬を確認できます。
+    </p>
+  </div>
+
+  <%= link_to "薬を登録する",
+              new_medication_path,
+              class: "rounded-full bg-[#4a654f] px-7 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
 </header>
 
 <% if @medications.any? %>
@@ -78,12 +84,8 @@
       お薬を登録すると、こちらに一覧で表示されます。
     </p>
 
-    <button
-      type="button"
-      disabled
-      class="mt-6 cursor-not-allowed rounded-full bg-[#4a654f] px-8 py-3 font-bold text-white opacity-60"
-    >
-      お薬を登録する（準備中）
-    </button>
+    <%= link_to "薬を登録する",
+              new_medication_path,
+              class: "mt-6 inline-block rounded-full bg-[#4a654f] px-8 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
   </section>
 <% end %>
