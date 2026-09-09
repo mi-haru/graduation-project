@@ -5,7 +5,9 @@ class MedicationsController < ApplicationController
   before_action :set_medication, only: %i[show edit update destroy]
 
   def index
-    @medications = current_user.medications.order(start_date: :desc)
+    @medications = current_user.medications
+                               .includes(medication_timings: :time_period)
+                               .order(start_date: :desc)
   end
 
   def new

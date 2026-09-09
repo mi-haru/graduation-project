@@ -12,6 +12,18 @@ ja:
 
   medications:
     heading: "お薬の管理"
+    index:
+      title: "服薬情報"
+      description: "登録しているお薬を確認できます。"
+      register: "薬を登録する"
+      name_label: "お薬の名前"
+      time_periods: "飲む時間帯"
+      meal_timings: "食事のタイミング"
+      not_set: "未設定"
+      show: "詳細を見る"
+      edit: "編集する"
+      empty_title: "服薬情報はまだありません"
+      empty_description: "お薬を登録すると、こちらに一覧で表示されます。"
     new:
       title: "薬の登録"
     edit:

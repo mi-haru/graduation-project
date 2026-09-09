@@ -1,0 +1,47 @@
+<section class="medisu-card p-7">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-bold text-[#8daa91]">
+              <%= t("medications.index.name_label") %>
+            </p>
+
+            <h2 class="mt-2 text-2xl font-bold text-[#344a39]">
+              <%= medication.name %>
+            </h2>
+          </div>
+
+          <span class="rounded-full bg-[#f0e7dc] px-4 py-2 text-sm font-bold text-[#715a3e]">
+            <%= medication.dosage %>
+          </span>
+        </div>
+
+        <dl class="mt-6 grid gap-4 rounded-3xl bg-[#fff8f3] p-6 sm:grid-cols-2">
+          <div>
+            <dt class="text-sm font-bold text-[#8daa91]">
+              <%= t("medications.index.time_periods") %>
+            </dt>
+            <dd class="mt-1 text-[#344a39]">
+              <%= medication_time_periods_text(medication) %>
+            </dd>
+          </div>
+
+          <div>
+            <dt class="text-sm font-bold text-[#8daa91]">
+              <%= t("medications.index.meal_timings") %>
+            </dt>
+            <dd class="mt-1 text-[#344a39]">
+              <%= medication_meal_timings_text(medication) %>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <%= link_to t("medications.index.show"),
+                      medication_path(medication),
+                      class: "rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+
+          <%= link_to t("medications.index.edit"),
+                      edit_medication_path(medication),
+                      class: "rounded-full border border-[#4a654f]/30 px-6 py-3 font-bold text-[#4a654f] transition hover:bg-[#edf5ee]" %>
+        </div>
+      </section>
