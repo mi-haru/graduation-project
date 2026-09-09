@@ -1,0 +1,36 @@
+<div class="mb-4 flex justify-end">
+  <button
+    type="button"
+    data-action="confirmation-dialog#open"
+    aria-label="<%= t('actions.destroy') %>"
+    class="flex h-11 w-11 items-center justify-center rounded-full text-red-600 transition hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+  >
+    <%= render "shared/icons/trash" %>
+  </button>
+</div>
+
+<dialog
+  data-confirmation-dialog-target="dialog"
+  aria-labelledby="medication-delete-title"
+  class="fixed inset-0 m-auto w-[calc(100%-2rem)] max-w-md rounded-3xl border-0 bg-white p-7 text-[#344a39] shadow-xl backdrop:bg-black/40"
+>
+  <h2 id="medication-delete-title" class="text-xl font-bold">
+    <%= t("medications.confirmations.destroy") %>
+  </h2>
+
+  <div class="mt-6 flex flex-wrap justify-end gap-3">
+    <button
+      type="button"
+      autofocus
+      data-action="confirmation-dialog#close"
+      class="rounded-full border border-[#4a654f]/30 px-6 py-3 font-bold transition hover:bg-[#edf5ee]"
+    >
+      <%= t("actions.cancel") %>
+    </button>
+
+    <%= button_to t("actions.destroy"),
+                  medication_path(@medication),
+                  method: :delete,
+                  class: "rounded-full bg-red-600 px-6 py-3 font-bold text-white transition hover:bg-red-700" %>
+  </div>
+</dialog>

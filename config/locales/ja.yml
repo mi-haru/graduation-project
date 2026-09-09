@@ -8,6 +8,7 @@ ja:
     update: "更新する"
     cancel: "キャンセル"
     back_to_index: "一覧へ戻る"
+    destroy: "削除する"
 
   medications:
     heading: "お薬の管理"
@@ -15,6 +16,8 @@ ja:
       title: "薬の登録"
     edit:
       title: "服薬情報の詳細・編集"
+    confirmations:
+      destroy: "このお薬を削除しますか？"
     form:
       error_heading: "入力内容を確認してください"
       name_placeholder: "例：ロキソニン"
@@ -27,7 +30,9 @@ ja:
     notices:
       created: "服薬情報を登録しました。"
       updated: "服薬情報を更新しました。"
+      destroyed: "服薬情報を削除しました。"
     errors:
       time_period_required: "服薬タイミングを1つ以上選択してください。"
       time_period_invalid: "服薬タイミングを正しく選択してください。"
       meal_timing_invalid: "食事との関係を正しく選択してください。"
+      destroy_failed: "服薬情報を削除できませんでした。"

@@ -2,7 +2,7 @@ class MedicationsController < ApplicationController
   layout "authenticated"
 
   before_action :authenticate_user!
-  before_action :set_medication, only: %i[show edit update]
+  before_action :set_medication, only: %i[show edit update destroy]
 
   def index
     @medications = current_user.medications.order(start_date: :desc)
@@ -68,6 +68,18 @@ class MedicationsController < ApplicationController
 
     redirect_to medications_path,
                 notice: t("medications.notices.updated")
+  end
+
+  def destroy
+    if @medication.destroy
+      redirect_to medications_path,
+                  notice: t("medications.notices.destroyed"),
+                  status: :see_other
+    else
+      redirect_to edit_medication_path(@medication),
+                  alert: t("medications.errors.destroy_failed"),
+                  status: :see_other
+    end
   end
 
   private

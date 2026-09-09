@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import ConfirmationDialogController from "./confirmation_dialog_controller"
+application.register("confirmation-dialog", ConfirmationDialogController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
