@@ -1,0 +1,17 @@
+<header class="mb-6 px-2 py-3">
+  <p class="text-sm font-bold text-[#8daa91]">
+    <%= t("medications.heading") %>
+  </p>
+
+  <h1 class="mt-2 text-3xl font-bold text-[#1f1b15] sm:text-4xl">
+    <%= t("medications.edit.title") %>
+  </h1>
+</header>
+
+<section
+  class="medisu-card relative p-7 sm:p-9"
+  data-controller="confirmation-dialog"
+>
+  <%= render "delete_confirmation" %>
+  <%= render "form" %>
+</section>

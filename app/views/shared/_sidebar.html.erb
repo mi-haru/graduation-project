@@ -1,0 +1,57 @@
+<aside class="medisu-card flex flex-col p-6 lg:min-h-[calc(100vh-3rem)]">
+      <div>
+        <%= link_to home_path, class: "inline-block" do %>
+          <%= image_tag "logo.png", alt: "medi巣", class: "h-16 w-auto" %>
+        <% end %>
+
+        <div class="mt-8">
+          <h2 class="text-2xl font-bold text-[#344a39]">
+            おかえりなさい
+          </h2>
+
+          <p class="mt-2 text-sm leading-6 text-gray-600">
+            <%= current_user.nickname %>さんの巣は<br>
+            今日も整っています
+          </p>
+        </div>
+
+        <nav class="mt-8 space-y-3" aria-label="メインメニュー">
+
+        <%= link_to home_path,
+                    class: "block rounded-2xl px-5 py-4 font-bold transition #{current_page?(home_path) ? 'bg-[#8daa91] text-white' : 'text-[#344a39] hover:bg-[#edf5ee]'}" do %>
+          ホーム
+        <% end %>
+
+        <%= link_to medications_path,
+                    class: "block rounded-2xl px-5 py-4 font-bold transition #{current_page?(medications_path) ? 'bg-[#8daa91] text-white' : 'text-[#344a39] hover:bg-[#edf5ee]'}" do %>
+          服薬管理
+        <% end %>
+
+          <button
+            type="button"
+            disabled
+            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
+          >
+            受診予定
+            <span class="ml-2 text-xs font-normal">準備中</span>
+          </button>
+
+          <button
+            type="button"
+            disabled
+            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
+          >
+            プロフィール設定
+            <span class="ml-2 text-xs font-normal">準備中</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="mt-8 border-t border-[#4a654f]/10 pt-5 lg:mt-auto">
+        <%= button_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              form: { class: "w-full" },
+              class: "w-full rounded-2xl border border-[#4a654f]/20 px-5 py-3 text-left font-bold text-[#4a654f] transition hover:bg-[#f0e7dc]" %>
+      </div>
+    </aside>
