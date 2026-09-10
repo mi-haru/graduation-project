@@ -161,6 +161,96 @@ class MedicationUpdateTest < ActionDispatch::IntegrationTest
     assert_equal original_attributes, @other_medication.reload.attributes
   end
 
+  test "薬名や用量を変更しても同じ時間帯のチェック記録を保持する" do
+    timing = @medication.medication_timings.find_by!(
+      time_period: @morning
+    )
+    check = timing.medication_checks.create!(
+      check_date: Date.new(2026, 9, 10)
+    )
+
+    sign_in @user
+
+    assert_no_difference [ "MedicationTiming.count", "MedicationCheck.count" ] do
+      patch medication_path(@medication), params: {
+        medication: update_params.merge(
+          time_period_ids: [ @morning.id.to_s ],
+          meal_timing: "after_meal"
+        )
+      }
+    end
+
+    assert_redirected_to medications_path
+    assert_equal "編集後の薬", @medication.reload.name
+    assert_equal "2錠", @medication.dosage
+    assert_equal timing.id,
+                @medication.medication_timings.find_by!(
+                  time_period: @morning
+                ).id
+    assert_equal timing.id, check.reload.medication_timing_id
+    assert_equal Date.new(2026, 9, 10), check.check_date
+  end
+
+  test "外した時間帯のチェックだけ削除して残る時間帯のチェックは保持する" do
+    morning_timing = @medication.medication_timings.find_by!(
+      time_period: @morning
+    )
+    evening_timing = @medication.medication_timings.create!(
+      time_period: @evening,
+      meal_timing: :after_meal
+    )
+
+    morning_check = morning_timing.medication_checks.create!(
+      check_date: Date.new(2026, 9, 10)
+    )
+    evening_check = evening_timing.medication_checks.create!(
+      check_date: Date.new(2026, 9, 10)
+    )
+
+    sign_in @user
+
+    assert_difference "MedicationTiming.count", -1 do
+      assert_difference "MedicationCheck.count", -1 do
+        patch medication_path(@medication), params: {
+          medication: update_params.merge(
+            time_period_ids: [ @morning.id.to_s ]
+          )
+        }
+      end
+    end
+
+    assert_redirected_to medications_path
+    assert MedicationTiming.exists?(morning_timing.id)
+    assert MedicationCheck.exists?(morning_check.id)
+    assert_equal "before_meal", morning_timing.reload.meal_timing
+
+    assert_not MedicationTiming.exists?(evening_timing.id)
+    assert_not MedicationCheck.exists?(evening_check.id)
+  end
+
+  test "入力エラーでは服薬チェックも変更されない" do
+    timing = @medication.medication_timings.find_by!(
+      time_period: @morning
+    )
+    check = timing.medication_checks.create!(
+      check_date: Date.new(2026, 9, 10)
+    )
+    original_check_attributes = check.attributes
+
+    sign_in @user
+
+    assert_no_difference [ "MedicationTiming.count", "MedicationCheck.count" ] do
+      patch medication_path(@medication), params: {
+        medication: update_params.merge(end_date: "2026-09-01")
+      }
+    end
+
+    assert_response :unprocessable_content
+    assert_equal "編集前の薬", @medication.reload.name
+    assert_equal "after_meal", timing.reload.meal_timing
+    assert_equal original_check_attributes, check.reload.attributes
+  end
+
   private
 
   def update_params

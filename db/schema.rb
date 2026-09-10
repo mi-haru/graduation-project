@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_05_135609) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_142927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "medication_checks", force: :cascade do |t|
+    t.date "check_date", null: false
+    t.datetime "created_at", null: false
+    t.bigint "medication_timing_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medication_timing_id", "check_date"], name: "index_medication_checks_on_medication_timing_id_and_check_date", unique: true
+    t.index ["medication_timing_id"], name: "index_medication_checks_on_medication_timing_id"
+  end
 
   create_table "medication_timings", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,6 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_05_135609) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "medication_checks", "medication_timings"
   add_foreign_key "medication_timings", "medications"
   add_foreign_key "medication_timings", "time_periods"
   add_foreign_key "medications", "users"
