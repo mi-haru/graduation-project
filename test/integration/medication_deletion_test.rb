@@ -28,16 +28,21 @@ class MedicationDeletionTest < ActionDispatch::IntegrationTest
       time_period: @morning,
       meal_timing: :after_meal
     )
+
+    @check = @timing.medication_checks.create!(
+      check_date: Date.new(2026, 9, 11)
+    )
   end
 
-  test "自分の薬と服薬タイミングを削除して一覧へ戻る" do
+  test "自分の薬と関連する時間帯の設定とチェックを削除する" do
     sign_in @user
 
     assert_no_difference "TimePeriod.count" do
-      assert_difference "Medication.count", -1 do
-        assert_difference "MedicationTiming.count", -1 do
-          delete medication_path(@medication)
-        end
+      assert_difference(
+        [ "Medication.count", "MedicationTiming.count", "MedicationCheck.count" ],
+        -1
+      ) do
+        delete medication_path(@medication)
       end
     end
 
@@ -45,26 +50,32 @@ class MedicationDeletionTest < ActionDispatch::IntegrationTest
     assert_redirected_to medications_path
     assert_not Medication.exists?(@medication.id)
     assert_not MedicationTiming.exists?(@timing.id)
+    assert_not MedicationCheck.exists?(@check.id)
     assert TimePeriod.exists?(@morning.id)
 
     follow_redirect!
     assert_select "[role='status']", text: "服薬情報を削除しました。"
   end
 
-  test "未ログインでは薬と服薬タイミングを削除できない" do
-    assert_no_difference [ "Medication.count", "MedicationTiming.count" ] do
+  test "未ログインでは薬と関連データを削除できない" do
+    assert_no_difference(
+      [ "Medication.count", "MedicationTiming.count", "MedicationCheck.count" ]
+    ) do
       delete medication_path(@medication)
     end
 
     assert_redirected_to new_user_session_path
     assert Medication.exists?(@medication.id)
     assert MedicationTiming.exists?(@timing.id)
+    assert MedicationCheck.exists?(@check.id)
   end
 
-  test "他のユーザーの薬と服薬タイミングを削除できない" do
+  test "他のユーザーの薬と関連データを削除できない" do
     sign_in @other_user
 
-    assert_no_difference [ "Medication.count", "MedicationTiming.count" ] do
+    assert_no_difference(
+      [ "Medication.count", "MedicationTiming.count", "MedicationCheck.count" ]
+    ) do
       assert_not_found do
         delete medication_path(@medication)
       end
@@ -72,6 +83,7 @@ class MedicationDeletionTest < ActionDispatch::IntegrationTest
 
     assert Medication.exists?(@medication.id)
     assert MedicationTiming.exists?(@timing.id)
+    assert MedicationCheck.exists?(@check.id)
   end
 
   private
