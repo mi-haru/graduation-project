@@ -63,44 +63,64 @@ class MedicationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "時間帯を表示順に並べて食事タイミングを日本語で表示する" do
-  evening = TimePeriod.create!(name: "夕", position: 30)
-  morning = TimePeriod.create!(name: "朝", position: 10)
+    evening = TimePeriod.create!(name: "夕", position: 30)
+    morning = TimePeriod.create!(name: "朝", position: 10)
 
-  @medication.medication_timings.create!(
-    time_period: evening,
-    meal_timing: :after_meal
-  )
-  @medication.medication_timings.create!(
-    time_period: morning,
-    meal_timing: :after_meal
-  )
+    @medication.medication_timings.create!(
+      time_period: evening,
+      meal_timing: :after_meal
+    )
+    @medication.medication_timings.create!(
+      time_period: morning,
+      meal_timing: :after_meal
+    )
 
-  sign_in @user
-  get medications_path
+    sign_in @user
+    get medications_path
 
-  assert_response :success
+    assert_response :success
 
-  assert_select "section.medisu-card" do
-    assert_select "h2", text: @medication.name
-    assert_select "dt", text: "飲む時間帯"
-    assert_select "dd", text: "朝・夕"
-    assert_select "dt", text: "食事のタイミング"
-    assert_select "dd", text: "食後", count: 1
+    assert_select "section.medisu-card" do
+      assert_select "h2", text: @medication.name
+      assert_select "dt", text: "飲む時間帯"
+      assert_select "dd", text: "朝・夕"
+      assert_select "dt", text: "食事のタイミング"
+      assert_select "dd", text: "食後", count: 1
 
-    assert_select "dt", text: /服用開始日|服用終了日|服薬開始日|服薬終了日/,
-                        count: 0
+      assert_select "dt", text: /服用開始日|服用終了日|服薬開始日|服薬終了日/,
+                          count: 0
+    end
   end
-end
 
-test "服薬タイミングが未登録なら未設定と表示する" do
-  sign_in @user
-  get medications_path
+  test "服薬タイミングが未登録なら未設定と表示する" do
+    sign_in @user
+    get medications_path
 
-  assert_response :success
+    assert_response :success
 
-  assert_select "section.medisu-card" do
-    assert_select "h2", text: @medication.name
-    assert_select "dd", text: "未設定", count: 2
+    assert_select "section.medisu-card" do
+      assert_select "h2", text: @medication.name
+      assert_select "dd", text: "未設定", count: 2
+    end
   end
-end
+
+  test "薬が複数あっても各カードを1回だけ表示する" do
+    second_medication = @user.medications.create!(
+      name: "2つ目の薬",
+      dosage: "1錠",
+      start_date: Date.current
+    )
+
+    sign_in @user
+    get medications_path
+
+    assert_response :success
+
+    [ @medication, second_medication ].each do |medication|
+      assert_select "h2", text: medication.name, count: 1
+      assert_select "a[href=?]",
+                    edit_medication_path(medication),
+                    count: 1
+    end
+  end
 end
