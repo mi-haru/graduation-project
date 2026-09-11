@@ -20,9 +20,7 @@
 
 <% if @medications.any? %>
   <div class="grid gap-5">
-    <% @medications.each do |medication| %>
-      <%= render @medications %>
-    <% end %>
+    <%= render @medications %>
   </div>
 <% else %>
   <section class="medisu-card p-8 text-center sm:p-12">
