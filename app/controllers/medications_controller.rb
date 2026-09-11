@@ -5,7 +5,9 @@ class MedicationsController < ApplicationController
   before_action :set_medication, only: %i[show edit update destroy]
 
   def index
-    @medications = current_user.medications.order(start_date: :desc)
+    @medications = current_user.medications
+                               .includes(medication_timings: :time_period)
+                               .order(start_date: :desc)
   end
 
   def new
@@ -57,11 +59,11 @@ class MedicationsController < ApplicationController
 
     begin
       Medication.transaction do
-        @medication.medication_timings.destroy_all
-        build_medication_timings
         @medication.save!
+        sync_medication_timings!
       end
-    rescue ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed => error
+      @medication.errors.add(:base, error.record.errors.full_messages.to_sentence)
       render :edit, status: :unprocessable_content
       return
     end
@@ -142,6 +144,31 @@ class MedicationsController < ApplicationController
   def build_medication_timings
     @selected_time_period_ids.each do |time_period_id|
       @medication.medication_timings.build(
+        time_period_id: time_period_id,
+        meal_timing: @meal_timing
+      )
+    end
+  end
+
+  def sync_medication_timings!
+    existing_timings = @medication.medication_timings.to_a
+
+    existing_timings.each do |timing|
+      if @selected_time_period_ids.include?(timing.time_period_id.to_s)
+        timing.update!(meal_timing: @meal_timing)
+      else
+        timing.destroy!
+      end
+    end
+
+    existing_time_period_ids =
+      existing_timings.map { |timing| timing.time_period_id.to_s }
+
+    new_time_period_ids =
+      @selected_time_period_ids - existing_time_period_ids
+
+    new_time_period_ids.each do |time_period_id|
+      @medication.medication_timings.create!(
         time_period_id: time_period_id,
         meal_timing: @meal_timing
       )

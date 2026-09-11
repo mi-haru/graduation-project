@@ -2,6 +2,8 @@ class MedicationTiming < ApplicationRecord
   belongs_to :medication
   belongs_to :time_period
 
+  has_many :medication_checks, dependent: :destroy
+
   enum :meal_timing, {
     unspecified: 0,
     before_meal: 1,

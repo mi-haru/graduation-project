@@ -10,8 +10,30 @@ ja:
     back_to_index: "一覧へ戻る"
     destroy: "削除する"
 
+  home:
+    medications:
+      title: "今日のお薬"
+      instruction: "飲んだら右の丸を押してください。もう一度押すと取り消せます。"
+      empty_title: "今日飲むお薬はありません"
+      empty_description: "登録したお薬の服薬期間に合わせて表示されます。"
+      register: "薬を登録する"
+      mark_taken: "%{name}（%{period}）を服用済みにする"
+      undo_taken: "%{name}（%{period}）の服用済みを取り消す"
+
   medications:
     heading: "お薬の管理"
+    index:
+      title: "服薬情報"
+      description: "登録しているお薬を確認できます。"
+      register: "薬を登録する"
+      name_label: "お薬の名前"
+      time_periods: "飲む時間帯"
+      meal_timings: "食事のタイミング"
+      not_set: "未設定"
+      show: "詳細を見る"
+      edit: "編集する"
+      empty_title: "服薬情報はまだありません"
+      empty_description: "お薬を登録すると、こちらに一覧で表示されます。"
     new:
       title: "薬の登録"
     edit:

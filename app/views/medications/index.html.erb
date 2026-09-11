@@ -1,19 +1,19 @@
 <header class="mb-6 flex flex-wrap items-end justify-between gap-4 px-2 py-3">
   <div>
     <p class="text-sm font-bold text-[#8daa91]">
-      お薬の管理
+      <%= t("medications.heading") %>
     </p>
 
     <h1 class="mt-2 text-3xl font-bold text-[#1f1b15] sm:text-4xl">
-      服薬情報
+      <%= t("medications.index.title") %>
     </h1>
 
     <p class="mt-2 text-gray-600">
-      登録しているお薬を確認できます。
+      <%= t("medications.index.description") %>
     </p>
   </div>
 
-  <%= link_to "薬を登録する",
+  <%= link_to t("medications.index.register"),
               new_medication_path,
               class: "rounded-full bg-[#4a654f] px-7 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
 </header>
@@ -21,53 +21,7 @@
 <% if @medications.any? %>
   <div class="grid gap-5">
     <% @medications.each do |medication| %>
-      <section class="medisu-card p-7">
-        <div class="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p class="text-sm font-bold text-[#8daa91]">
-              お薬の名前
-            </p>
-
-            <h2 class="mt-2 text-2xl font-bold text-[#344a39]">
-              <%= medication.name %>
-            </h2>
-          </div>
-
-          <span class="rounded-full bg-[#f0e7dc] px-4 py-2 text-sm font-bold text-[#715a3e]">
-            <%= medication.dosage %>
-          </span>
-        </div>
-
-        <dl class="mt-6 grid gap-4 rounded-3xl bg-[#fff8f3] p-6 sm:grid-cols-2">
-          <div>
-            <dt class="text-sm font-bold text-[#8daa91]">
-              服用開始日
-            </dt>
-            <dd class="mt-1 text-[#344a39]">
-              <%= I18n.l(medication.start_date) %>
-            </dd>
-          </div>
-
-          <div>
-            <dt class="text-sm font-bold text-[#8daa91]">
-              服用終了日
-            </dt>
-            <dd class="mt-1 text-[#344a39]">
-              <%= medication.end_date ? I18n.l(medication.end_date) : "未設定" %>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <%= link_to "詳細を見る",
-                      medication_path(medication),
-                      class: "rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
-
-          <%= link_to "編集する",
-                      edit_medication_path(medication),
-                      class: "rounded-full border border-[#4a654f]/30 px-6 py-3 font-bold text-[#4a654f] transition hover:bg-[#edf5ee]" %>
-        </div>
-      </section>
+      <%= render @medications %>
     <% end %>
   </div>
 <% else %>
@@ -77,15 +31,15 @@
     </p>
 
     <h2 class="mt-4 text-2xl font-bold text-[#344a39]">
-      服薬情報はまだありません
+      <%= t("medications.index.empty_title") %>
     </h2>
 
     <p class="mt-3 text-gray-600">
-      お薬を登録すると、こちらに一覧で表示されます。
+      <%= t("medications.index.empty_description") %>
     </p>
 
-    <%= link_to "薬を登録する",
-              new_medication_path,
-              class: "mt-6 inline-block rounded-full bg-[#4a654f] px-8 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+    <%= link_to t("medications.index.register"),
+                new_medication_path,
+                class: "mt-6 inline-block rounded-full bg-[#4a654f] px-8 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
   </section>
 <% end %>

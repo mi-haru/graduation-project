@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :medications, only: %i[index show new create edit update destroy]
 
+  resources :medication_timings, only: [] do
+    resource :medication_check, only: %i[create destroy]
+  end
+
   get "home", to: "home#index", as: :home
   devise_for :users
   root "pages#top"
