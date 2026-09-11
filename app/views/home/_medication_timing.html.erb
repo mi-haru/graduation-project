@@ -1,0 +1,32 @@
+<% checked = @checked_timing_ids.include?(timing.id) %>
+
+<div class="flex items-center justify-between gap-4 rounded-3xl bg-[#f0e7dc]/70 px-5 py-4">
+  <div class="min-w-0 flex-1">
+    <p class="break-words text-lg font-bold text-[#344a39]">
+      <%= timing.medication.name %>
+    </p>
+
+    <p class="mt-1 break-words text-sm text-gray-600">
+      <%= timing.medication.dosage %>
+      ・
+      <%= t("enums.medication_timing.meal_timing.#{timing.meal_timing}") %>
+    </p>
+  </div>
+
+  <%= button_to medication_timing_medication_check_path(timing),
+                method: checked ? :delete : :post,
+                form: { class: "shrink-0" },
+                class: "flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4a654f]",
+                aria: {
+                  label: t(
+                    checked ? "home.medications.undo_taken" : "home.medications.mark_taken",
+                    name: timing.medication.name,
+                    period: timing.time_period.name
+                  )
+                } do %>
+    <span
+      aria-hidden="true"
+      class="block h-7 w-7 rounded-full border-2 border-[#4a654f] <%= checked ? 'bg-[#4a654f]' : 'bg-white' %>"
+    ></span>
+  <% end %>
+</div>
