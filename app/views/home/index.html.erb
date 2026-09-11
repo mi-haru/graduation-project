@@ -4,45 +4,13 @@
   </h1>
 
   <p class="mt-2 text-gray-600">
-    <%= I18n.l(Date.current, format: "%-m月%-d日") %>
+    <%= I18n.l(@today, format: "%-m月%-d日") %>
     ・穏やかな一日になりますように
   </p>
 </header>
 
 <div class="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.9fr)]">
-  <section class="medisu-card p-7 sm:p-9">
-    <p class="text-sm font-bold text-[#8daa91]">
-      今日の記録
-    </p>
-
-    <div class="mt-2 flex flex-wrap items-center justify-between gap-4">
-      <h2 class="text-2xl font-bold text-[#344a39]">
-        今日のお薬
-      </h2>
-
-      <span class="rounded-full bg-[#f0e7dc] px-4 py-2 text-sm font-bold text-[#715a3e]">
-        未登録
-      </span>
-    </div>
-
-    <div class="mt-7 rounded-3xl bg-[#fff8f3] p-6">
-      <p class="font-bold text-[#344a39]">
-        服薬情報はまだありません
-      </p>
-
-      <p class="mt-2 text-sm leading-6 text-gray-600">
-        お薬を登録すると、今日服用するお薬がここに表示されます。
-      </p>
-    </div>
-
-    <button
-      type="button"
-      disabled
-      class="mt-6 w-full cursor-not-allowed rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white opacity-60"
-    >
-      お薬を登録する（準備中）
-    </button>
-  </section>
+  <%= render "today_medications" %>
 
   <div class="space-y-6">
     <section class="medisu-card p-7">
