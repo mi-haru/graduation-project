@@ -27,14 +27,10 @@
           服薬管理
         <% end %>
 
-          <button
-            type="button"
-            disabled
-            class="w-full cursor-not-allowed rounded-2xl px-5 py-4 text-left font-bold text-[#344a39] opacity-60"
-          >
+          <%= link_to appointments_path,
+                     class: "block rounded-2xl px-5 py-4 font-bold transition #{controller_name == 'appointments' ? 'bg-[#8daa91] text-white' : 'text-[#344a39] hover:bg-[#edf5ee]'}" do %>
             受診予定
-            <span class="ml-2 text-xs font-normal">準備中</span>
-          </button>
+          <% end %>
 
           <button
             type="button"

@@ -58,3 +58,12 @@ ja:
       time_period_invalid: "服薬タイミングを正しく選択してください。"
       meal_timing_invalid: "食事との関係を正しく選択してください。"
       destroy_failed: "服薬情報を削除できませんでした。"
+  appointments:
+    index:
+      title: "受診予定"
+      description: "登録している受診予定を確認できます。"
+      empty_title: "受診予定はまだありません"
+      empty_description: "受診予定を登録すると、こちらに一覧で表示されます。"
+      date: "受診日"
+      time: "受診時間"
+      time_not_set: "時間未設定"
