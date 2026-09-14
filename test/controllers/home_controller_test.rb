@@ -28,7 +28,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "nav[aria-label='メインメニュー']"
     assert_select "a[href=?]", home_path, text: "ホーム"
     assert_select "a[href=?]", medications_path, text: "服薬管理"
-    assert_select "button[disabled]", text: /受診予定/
+    assert_select "a[href=?]", appointments_path, text: "受診予定"
     assert_select "form[action=?]", destroy_user_session_path do
       assert_select "button", text: "ログアウト"
     end

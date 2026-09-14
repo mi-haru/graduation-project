@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_142927) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_14_124006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.date "appointment_date", null: false
+    t.time "appointment_time"
+    t.datetime "created_at", null: false
+    t.string "department"
+    t.bigint "hospital_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hospital_id"], name: "index_appointments_on_hospital_id"
+  end
+
+  create_table "hospitals", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_hospitals_on_user_id"
+  end
 
   create_table "medication_checks", force: :cascade do |t|
     t.date "check_date", null: false
@@ -61,6 +79,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_142927) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "appointments", "hospitals"
+  add_foreign_key "hospitals", "users"
   add_foreign_key "medication_checks", "medication_timings"
   add_foreign_key "medication_timings", "medications"
   add_foreign_key "medication_timings", "time_periods"
