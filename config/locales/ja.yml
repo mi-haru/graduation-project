@@ -62,8 +62,21 @@ ja:
     index:
       title: "受診予定"
       description: "登録している受診予定を確認できます。"
+      register: "予定を登録する"
       empty_title: "受診予定はまだありません"
       empty_description: "受診予定を登録すると、こちらに一覧で表示されます。"
       date: "受診日"
       time: "受診時間"
       time_not_set: "時間未設定"
+    new:
+      title: "受診予定の登録"
+    form:
+      hospital_name: "医療機関名"
+      department: "診療科（任意）"
+      appointment_date: "受診日"
+      appointment_time: "受診時間（任意）"
+      hospital_name_placeholder: "例：さくらクリニック"
+      department_placeholder: "例：内科"
+      error_heading: "入力内容を確認してください"
+    notices:
+      created: "受診予定を登録しました。"

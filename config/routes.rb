@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :appointments, only: %i[index]
+  resources :appointments, only: %i[index new create]
 
   resources :medications, only: %i[index show new create edit update destroy]
 
