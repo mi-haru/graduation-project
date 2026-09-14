@@ -1,0 +1,75 @@
+<% error_messages = (
+  @hospital.errors.full_messages +
+  @appointment.errors.full_messages
+).uniq %>
+
+<% if error_messages.any? %>
+  <div role="alert" class="mb-7 rounded-2xl border border-red-200 bg-red-50 p-5 text-red-700">
+    <h2 class="font-bold">
+      <%= t("appointments.form.error_heading") %>
+    </h2>
+
+    <ul class="mt-2 list-disc space-y-1 pl-5">
+      <% error_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @appointment do |f| %>
+  <div class="space-y-6">
+    <div>
+      <%= label_tag "appointment_hospital_name",
+                    t("appointments.form.hospital_name"),
+                    class: "block font-bold text-[#344a39]" %>
+
+      <%= text_field_tag "appointment[hospital_name]",
+                         @hospital.name,
+                         id: "appointment_hospital_name",
+                         required: true,
+                         placeholder: t("appointments.form.hospital_name_placeholder"),
+                         class: "mt-2 w-full rounded-2xl border border-[#4a654f]/30 bg-[#4a654f]/5 px-4 py-3 text-[#344a39] focus:border-[#4a654f] focus:outline-none focus:ring-2 focus:ring-[#4a654f]/20" %>
+    </div>
+
+    <div>
+      <%= f.label :department,
+                  t("appointments.form.department"),
+                  class: "block font-bold text-[#344a39]" %>
+
+      <%= f.text_field :department,
+                       placeholder: t("appointments.form.department_placeholder"),
+                       class: "mt-2 w-full rounded-2xl border border-[#4a654f]/30 bg-[#4a654f]/5 px-4 py-3 text-[#344a39] focus:border-[#4a654f] focus:outline-none focus:ring-2 focus:ring-[#4a654f]/20" %>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div>
+        <%= f.label :appointment_date,
+                    t("appointments.form.appointment_date"),
+                    class: "block font-bold text-[#344a39]" %>
+
+        <%= f.date_field :appointment_date,
+                         required: true,
+                         class: "mt-2 w-full rounded-2xl border border-[#4a654f]/30 bg-[#4a654f]/5 px-4 py-3 text-[#344a39] focus:border-[#4a654f] focus:outline-none focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+
+      <div>
+        <%= f.label :appointment_time,
+                    t("appointments.form.appointment_time"),
+                    class: "block font-bold text-[#344a39]" %>
+
+        <%= f.time_field :appointment_time,
+                         class: "mt-2 w-full rounded-2xl border border-[#4a654f]/30 bg-[#4a654f]/5 px-4 py-3 text-[#344a39] focus:border-[#4a654f] focus:outline-none focus:ring-2 focus:ring-[#4a654f]/20" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 flex flex-wrap gap-3">
+    <%= f.submit t(@appointment.persisted? ? "actions.update" : "actions.create"),
+                 class: "cursor-pointer rounded-full bg-[#4a654f] px-8 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+
+    <%= link_to t("actions.cancel"),
+                appointments_path,
+                class: "rounded-full border border-[#4a654f]/30 px-8 py-3 font-bold text-[#4a654f] transition hover:bg-[#edf5ee]" %>
+  </div>
+<% end %>

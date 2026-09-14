@@ -1,11 +1,17 @@
-<header class="mb-6 px-2 py-3">
-  <h1 class="text-3xl font-bold text-[#1f1b15] sm:text-4xl">
-    <%= t("appointments.index.title") %>
-  </h1>
+<header class="mb-6 flex flex-wrap items-end justify-between gap-4 px-2 py-3">
+  <div>
+    <h1 class="text-3xl font-bold text-[#1f1b15] sm:text-4xl">
+      <%= t("appointments.index.title") %>
+    </h1>
 
-  <p class="mt-2 text-gray-600">
-    <%= t("appointments.index.description") %>
-  </p>
+    <p class="mt-2 text-gray-600">
+      <%= t("appointments.index.description") %>
+    </p>
+  </div>
+
+  <%= link_to t("appointments.index.register"),
+              new_appointment_path,
+              class: "rounded-full bg-[#4a654f] px-7 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
 </header>
 
 <% if @appointments.any? %>
