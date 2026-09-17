@@ -63,6 +63,7 @@ ja:
       title: "受診予定"
       description: "登録している受診予定を確認できます。"
       register: "予定を登録する"
+      detail_edit: "詳細・編集"
       empty_title: "受診予定はまだありません"
       empty_description: "受診予定を登録すると、こちらに一覧で表示されます。"
       date: "受診日"
@@ -70,6 +71,8 @@ ja:
       time_not_set: "時間未設定"
     new:
       title: "受診予定の登録"
+    edit:
+      title: "受診予定の詳細・編集"
     form:
       hospital_name: "医療機関名"
       department: "診療科（任意）"
@@ -80,3 +83,4 @@ ja:
       error_heading: "入力内容を確認してください"
     notices:
       created: "受診予定を登録しました。"
+      updated: "受診予定を更新しました。"

@@ -2,6 +2,7 @@ class AppointmentsController < ApplicationController
   layout "authenticated"
 
   before_action :authenticate_user!
+  before_action :set_appointment, only: %i[edit update]
 
   def index
     @appointments = current_user.appointments
@@ -46,7 +47,49 @@ class AppointmentsController < ApplicationController
                 status: :see_other
   end
 
+  def edit
+    @hospital = @appointment.hospital
+  end
+
+  def update
+    attributes = appointment_params
+    hospital_name = attributes.delete(:hospital_name)
+
+    @hospital = current_user.hospitals.find_or_initialize_by(
+      name: hospital_name
+    )
+
+    @appointment.assign_attributes(attributes)
+    @appointment.hospital = @hospital
+
+    hospital_valid = @hospital.valid?
+    appointment_valid = @appointment.valid?
+
+    unless hospital_valid && appointment_valid
+      render :edit, status: :unprocessable_content
+      return
+    end
+
+    begin
+      Appointment.transaction do
+        @hospital.save!
+        @appointment.save!
+      end
+    rescue ActiveRecord::RecordInvalid
+      render :edit, status: :unprocessable_content
+      return
+    end
+
+    redirect_to appointments_path,
+                notice: t("appointments.notices.updated"),
+                status: :see_other
+  end
+
   private
+
+  def set_appointment
+    @appointment = current_user.appointments.find(params[:id])
+  end
 
   def appointment_params
     params.require(:appointment).permit(

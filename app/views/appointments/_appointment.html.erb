@@ -28,4 +28,10 @@
       </dd>
     </div>
   </dl>
+
+  <div class="mt-6">
+    <%= link_to t("appointments.index.detail_edit"),
+                edit_appointment_path(appointment),
+                class: "inline-block rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+  </div>
 </section>
