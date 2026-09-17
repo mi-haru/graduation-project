@@ -99,4 +99,22 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "受診予定はまだありません"
     assert_not_includes response.body, "別ユーザーのクリニック"
   end
+
+  test "一覧に各受診予定の詳細編集リンクを表示する" do
+    second_appointment = @appointment.hospital.appointments.create!(
+      appointment_date: Date.new(2026, 10, 15)
+    )
+
+    sign_in @user
+    get appointments_path
+
+    assert_response :success
+
+    [ @appointment, second_appointment ].each do |appointment|
+      assert_select "a[href=?]",
+                    edit_appointment_path(appointment),
+                    text: "詳細・編集",
+                    count: 1
+    end
+  end
 end
