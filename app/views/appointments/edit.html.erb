@@ -4,6 +4,10 @@
   </h1>
 </header>
 
-<section class="medisu-card p-7 sm:p-9">
+<section
+  class="medisu-card p-7 sm:p-9"
+  data-controller="confirmation-dialog"
+>
+  <%= render "delete_confirmation" %>
   <%= render "form" %>
 </section>

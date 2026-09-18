@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   layout "authenticated"
 
   before_action :authenticate_user!
-  before_action :set_appointment, only: %i[edit update]
+  before_action :set_appointment, only: %i[edit update destroy]
 
   def index
     @appointments = current_user.appointments
@@ -83,6 +83,18 @@ class AppointmentsController < ApplicationController
     redirect_to appointments_path,
                 notice: t("appointments.notices.updated"),
                 status: :see_other
+  end
+
+  def destroy
+    if @appointment.destroy
+      redirect_to appointments_path,
+                  notice: t("appointments.notices.destroyed"),
+                  status: :see_other
+    else
+      redirect_to edit_appointment_path(@appointment),
+                  alert: t("appointments.errors.destroy_failed"),
+                  status: :see_other
+    end
   end
 
   private

@@ -84,3 +84,8 @@ ja:
     notices:
       created: "受診予定を登録しました。"
       updated: "受診予定を更新しました。"
+      destroyed: "受診予定を削除しました。"
+    errors:
+      destroy_failed: "受診予定を削除できませんでした。"
+    confirmations:
+      destroy: "この受診予定を削除しますか？"
