@@ -4,7 +4,8 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @today = Date.current
+    now = Time.current
+    @today = now.to_date
 
     @medication_timings = MedicationTiming
       .joins(:medication, :time_period)
@@ -27,5 +28,26 @@ class HomeController < ApplicationController
         check_date: @today
       )
       .pluck(:medication_timing_id)
+
+    appointments = current_user.appointments
+      .includes(:hospital)
+      .where("appointments.appointment_date >= ?", @today)
+      .to_a
+
+    current_time = now.strftime("%H:%M:%S")
+
+    upcoming_appointments = appointments.select do |appointment|
+      appointment.appointment_date > @today ||
+        appointment.appointment_time.nil? ||
+        appointment.appointment_time.strftime("%H:%M:%S") >= current_time
+    end
+
+    @next_appointment = upcoming_appointments.min_by do |appointment|
+      [
+        appointment.appointment_date,
+        appointment.appointment_time&.strftime("%H:%M:%S") || "24:00:00",
+        appointment.id
+      ]
+    end
   end
 end

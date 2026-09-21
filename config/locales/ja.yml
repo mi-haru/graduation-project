@@ -19,6 +19,14 @@ ja:
       register: "薬を登録する"
       mark_taken: "%{name}（%{period}）を服用済みにする"
       undo_taken: "%{name}（%{period}）の服用済みを取り消す"
+    next_appointment:
+      heading: "スケジュール"
+      title: "次回の受診予定"
+      empty_title: "次回の受診予定はありません"
+      empty_description: "予定を登録すると、こちらに日時と医療機関名が表示されます。"
+      time_not_set: "時間未設定"
+      detail_edit: "詳細・編集"
+      register: "受診予定を登録する"
 
   medications:
     heading: "お薬の管理"
