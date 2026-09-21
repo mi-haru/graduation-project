@@ -27,6 +27,16 @@ ja:
       time_not_set: "時間未設定"
       detail_edit: "詳細・編集"
       register: "受診予定を登録する"
+  sidebar:
+    logo_alt: "medi巣"
+    welcome: "おかえりなさい"
+    greeting: "%{nickname}さんの巣は"
+    description: "今日も整っています"
+    navigation_label: "メインメニュー"
+    home: "ホーム"
+    medications: "服薬管理"
+    appointments: "受診予定"
+    logout: "ログアウト"
 
   medications:
     heading: "お薬の管理"
