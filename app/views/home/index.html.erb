@@ -13,33 +13,7 @@
   <%= render "today_medications" %>
 
   <div class="space-y-6">
-    <section class="medisu-card p-7">
-      <p class="text-sm font-bold text-[#8daa91]">
-        スケジュール
-      </p>
-
-      <h2 class="mt-2 text-2xl font-bold text-[#344a39]">
-        次回の受診予定
-      </h2>
-
-      <div class="mt-6 rounded-3xl bg-[#f0e7dc]/70 p-6 text-center">
-        <p class="font-bold text-[#344a39]">
-          受診予定はありません
-        </p>
-
-        <p class="mt-2 text-sm text-gray-600">
-          登録すると日時と病院名が表示されます。
-        </p>
-      </div>
-
-      <button
-        type="button"
-        disabled
-        class="mt-5 w-full cursor-not-allowed rounded-full border border-[#4a654f]/30 px-6 py-3 font-bold text-[#4a654f] opacity-60"
-      >
-        受診予定を登録する（準備中）
-      </button>
-    </section>
+    <%= render "next_appointment" %>
 
     <section class="rounded-[3rem] bg-[#4a654f] p-8 text-center text-white shadow-xl shadow-[#715a3e]/10">
       <p class="text-3xl" aria-hidden="true">
