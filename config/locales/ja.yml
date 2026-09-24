@@ -19,6 +19,24 @@ ja:
       register: "薬を登録する"
       mark_taken: "%{name}（%{period}）を服用済みにする"
       undo_taken: "%{name}（%{period}）の服用済みを取り消す"
+    next_appointment:
+      heading: "スケジュール"
+      title: "次回の受診予定"
+      empty_title: "次回の受診予定はありません"
+      empty_description: "予定を登録すると、こちらに日時と医療機関名が表示されます。"
+      time_not_set: "時間未設定"
+      detail_edit: "詳細・編集"
+      register: "受診予定を登録する"
+  sidebar:
+    logo_alt: "medi巣"
+    welcome: "おかえりなさい"
+    greeting: "%{nickname}さんの巣は"
+    description: "今日も整っています"
+    navigation_label: "メインメニュー"
+    home: "ホーム"
+    medications: "服薬管理"
+    appointments: "受診予定"
+    logout: "ログアウト"
 
   medications:
     heading: "お薬の管理"
@@ -58,3 +76,34 @@ ja:
       time_period_invalid: "服薬タイミングを正しく選択してください。"
       meal_timing_invalid: "食事との関係を正しく選択してください。"
       destroy_failed: "服薬情報を削除できませんでした。"
+  appointments:
+    index:
+      title: "受診予定"
+      description: "登録している受診予定を確認できます。"
+      register: "予定を登録する"
+      detail_edit: "詳細・編集"
+      empty_title: "受診予定はまだありません"
+      empty_description: "受診予定を登録すると、こちらに一覧で表示されます。"
+      date: "受診日"
+      time: "受診時間"
+      time_not_set: "時間未設定"
+    new:
+      title: "受診予定の登録"
+    edit:
+      title: "受診予定の詳細・編集"
+    form:
+      hospital_name: "医療機関名"
+      department: "診療科（任意）"
+      appointment_date: "受診日"
+      appointment_time: "受診時間（任意）"
+      hospital_name_placeholder: "例：さくらクリニック"
+      department_placeholder: "例：内科"
+      error_heading: "入力内容を確認してください"
+    notices:
+      created: "受診予定を登録しました。"
+      updated: "受診予定を更新しました。"
+      destroyed: "受診予定を削除しました。"
+    errors:
+      destroy_failed: "受診予定を削除できませんでした。"
+    confirmations:
+      destroy: "この受診予定を削除しますか？"

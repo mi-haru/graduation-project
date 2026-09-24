@@ -15,6 +15,13 @@ ja:
         dosage: "1回の服用量"
         start_date: "服薬開始日"
         end_date: "服薬終了日"
+      hospital:
+        name: "医療機関名"
+      appointment:
+        hospital: "医療機関"
+        department: "診療科"
+        appointment_date: "受診日"
+        appointment_time: "受診時間"
     errors:
       messages:
         blank: "を入力してください"

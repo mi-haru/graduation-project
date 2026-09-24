@@ -1,0 +1,49 @@
+<section class="medisu-card p-7">
+  <p class="text-sm font-bold text-[#8daa91]">
+    <%= t("home.next_appointment.heading") %>
+  </p>
+
+  <h2 class="mt-2 text-2xl font-bold text-[#344a39]">
+    <%= t("home.next_appointment.title") %>
+  </h2>
+
+  <% if @next_appointment.present? %>
+    <div class="mt-6 rounded-3xl bg-[#f0e7dc]/70 p-6">
+      <p class="text-lg font-bold text-[#344a39]">
+        <%= l(@next_appointment.appointment_date) %>
+      </p>
+
+      <p class="mt-1 font-bold text-[#344a39]">
+        <% if @next_appointment.appointment_time.present? %>
+          <%= l(@next_appointment.appointment_time, format: "%H:%M") %>
+        <% else %>
+          <%= t("home.next_appointment.time_not_set") %>
+        <% end %>
+      </p>
+
+      <p class="mt-4 break-words font-bold text-[#344a39]">
+        <%= @next_appointment.hospital.name %>
+      </p>
+
+      <% if @next_appointment.department.present? %>
+        <p class="mt-2 break-words text-sm text-gray-600">
+          <%= @next_appointment.department %>
+        </p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mt-6 rounded-3xl bg-[#f0e7dc]/70 p-6 text-center">
+      <p class="font-bold text-[#344a39]">
+        <%= t("home.next_appointment.empty_title") %>
+      </p>
+
+      <p class="mt-2 text-sm text-gray-600">
+        <%= t("home.next_appointment.empty_description") %>
+      </p>
+    </div>
+  <% end %>
+
+  <%= link_to t("home.next_appointment.register"),
+              new_appointment_path,
+              class: "mt-6 block rounded-full bg-[#4a654f] px-6 py-3 text-center font-bold text-white transition hover:bg-[#3c5341]" %>
+</section>

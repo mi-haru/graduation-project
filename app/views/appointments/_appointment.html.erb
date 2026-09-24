@@ -1,0 +1,37 @@
+<section class="medisu-card p-7">
+  <h2 class="text-2xl font-bold text-[#344a39]">
+    <%= appointment.hospital.name %>
+  </h2>
+
+  <% if appointment.department.present? %>
+    <p class="mt-2 text-gray-600">
+      <%= appointment.department %>
+    </p>
+  <% end %>
+
+  <dl class="mt-6 grid gap-4 rounded-3xl bg-[#fff8f3] p-6 sm:grid-cols-2">
+    <div>
+      <dt class="text-sm font-bold text-[#8daa91]">
+        <%= t("appointments.index.date") %>
+      </dt>
+      <dd class="mt-1 text-[#344a39]">
+        <%= l(appointment.appointment_date) %>
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-sm font-bold text-[#8daa91]">
+        <%= t("appointments.index.time") %>
+      </dt>
+      <dd class="mt-1 text-[#344a39]">
+        <%= appointment.appointment_time ? l(appointment.appointment_time, format: "%H:%M") : t("appointments.index.time_not_set") %>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="mt-6">
+    <%= link_to t("appointments.index.detail_edit"),
+                edit_appointment_path(appointment),
+                class: "inline-block rounded-full bg-[#4a654f] px-6 py-3 font-bold text-white transition hover:bg-[#3c5341]" %>
+  </div>
+</section>
