@@ -48,18 +48,20 @@ class MedicationsControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, @other_medication.name
   end
 
-  test "詳細画面と編集画面への導線を表示する" do
+  test "詳細編集画面へのリンクを1つ表示する" do
     sign_in @user
-
     get medications_path
 
-    assert_select "a[href=?]",
-                  medication_path(@medication),
-                  text: "詳細を見る"
+    assert_response :success
 
     assert_select "a[href=?]",
                   edit_medication_path(@medication),
-                  text: "編集する"
+                  text: "詳細・編集",
+                  count: 1
+
+    assert_select "a[href=?]",
+                  medication_path(@medication),
+                  count: 0
   end
 
   test "時間帯を表示順に並べて食事タイミングを日本語で表示する" do
