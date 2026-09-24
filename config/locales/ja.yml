@@ -48,8 +48,7 @@ ja:
       time_periods: "飲む時間帯"
       meal_timings: "食事のタイミング"
       not_set: "未設定"
-      show: "詳細を見る"
-      edit: "編集する"
+      detail_edit: "詳細・編集"
       empty_title: "服薬情報はまだありません"
       empty_description: "お薬を登録すると、こちらに一覧で表示されます。"
     new:
