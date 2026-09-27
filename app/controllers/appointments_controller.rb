@@ -16,35 +16,15 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    attributes = appointment_params
-    hospital_name = attributes.delete(:hospital_name)
+    @appointment = Appointment.new
 
-    @hospital = current_user.hospitals.find_or_initialize_by(
-      name: hospital_name
-    )
-    @appointment = @hospital.appointments.build(attributes)
-
-    hospital_valid = @hospital.valid?
-    appointment_valid = @appointment.valid?
-
-    unless hospital_valid && appointment_valid
+    if save_appointment
+      redirect_to appointments_path,
+                  notice: t("appointments.notices.created"),
+                  status: :see_other
+    else
       render :new, status: :unprocessable_content
-      return
     end
-
-    begin
-      Appointment.transaction do
-        @hospital.save!
-        @appointment.save!
-      end
-    rescue ActiveRecord::RecordInvalid
-      render :new, status: :unprocessable_content
-      return
-    end
-
-    redirect_to appointments_path,
-                notice: t("appointments.notices.created"),
-                status: :see_other
   end
 
   def edit
@@ -52,37 +32,13 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    attributes = appointment_params
-    hospital_name = attributes.delete(:hospital_name)
-
-    @hospital = current_user.hospitals.find_or_initialize_by(
-      name: hospital_name
-    )
-
-    @appointment.assign_attributes(attributes)
-    @appointment.hospital = @hospital
-
-    hospital_valid = @hospital.valid?
-    appointment_valid = @appointment.valid?
-
-    unless hospital_valid && appointment_valid
+    if save_appointment
+      redirect_to appointments_path,
+                  notice: t("appointments.notices.updated"),
+                  status: :see_other
+    else
       render :edit, status: :unprocessable_content
-      return
     end
-
-    begin
-      Appointment.transaction do
-        @hospital.save!
-        @appointment.save!
-      end
-    rescue ActiveRecord::RecordInvalid
-      render :edit, status: :unprocessable_content
-      return
-    end
-
-    redirect_to appointments_path,
-                notice: t("appointments.notices.updated"),
-                status: :see_other
   end
 
   def destroy
@@ -110,5 +66,17 @@ class AppointmentsController < ApplicationController
       :appointment_date,
       :appointment_time
     )
+  end
+
+  def save_appointment
+    service = Appointments::Save.new(
+      user: current_user,
+      appointment: @appointment,
+      attributes: appointment_params
+    )
+
+    success = service.call
+    @hospital = service.hospital
+    success
   end
 end
