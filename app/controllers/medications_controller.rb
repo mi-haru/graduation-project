@@ -16,12 +16,10 @@ class MedicationsController < ApplicationController
   end
 
   def create
-    @medication = current_user.medications.build(medication_params)
+    @medication = current_user.medications.build
     prepare_timing_form
 
-    build_medication_timings if timing_selection_valid?
-
-    if @medication.errors.empty? && @medication.save
+    if save_medication
       redirect_to medications_path,
                   notice: t("medications.notices.created")
     else
@@ -46,30 +44,14 @@ class MedicationsController < ApplicationController
   end
 
   def update
-    @medication.assign_attributes(medication_params)
     prepare_timing_form
 
-    medication_valid = @medication.valid?
-    timing_valid = timing_selection_valid?
-
-    unless medication_valid && timing_valid
+    if save_medication
+      redirect_to medications_path,
+                  notice: t("medications.notices.updated")
+    else
       render :edit, status: :unprocessable_content
-      return
     end
-
-    begin
-      Medication.transaction do
-        @medication.save!
-        sync_medication_timings!
-      end
-    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed => error
-      @medication.errors.add(:base, error.record.errors.full_messages.to_sentence)
-      render :edit, status: :unprocessable_content
-      return
-    end
-
-    redirect_to medications_path,
-                notice: t("medications.notices.updated")
   end
 
   def destroy
@@ -109,69 +91,12 @@ class MedicationsController < ApplicationController
       params.dig(:medication, :meal_timing).presence || "unspecified"
   end
 
-  def timing_selection_valid?
-    valid = true
-
-    if @selected_time_period_ids.empty?
-      @medication.errors.add(
-        :base,
-        t("medications.errors.time_period_required")
-      )
-      valid = false
-    end
-
-    unless MedicationTiming.meal_timings.key?(@meal_timing)
-      @medication.errors.add(
-        :base,
-        t("medications.errors.meal_timing_invalid")
-      )
-      valid = false
-    end
-
-    valid_time_period_ids = @time_periods.map { |period| period.id.to_s }
-
-    if (@selected_time_period_ids - valid_time_period_ids).any?
-      @medication.errors.add(
-        :base,
-        t("medications.errors.time_period_invalid")
-      )
-      valid = false
-    end
-
-    valid
-  end
-
-  def build_medication_timings
-    @selected_time_period_ids.each do |time_period_id|
-      @medication.medication_timings.build(
-        time_period_id: time_period_id,
-        meal_timing: @meal_timing
-      )
-    end
-  end
-
-  def sync_medication_timings!
-    existing_timings = @medication.medication_timings.to_a
-
-    existing_timings.each do |timing|
-      if @selected_time_period_ids.include?(timing.time_period_id.to_s)
-        timing.update!(meal_timing: @meal_timing)
-      else
-        timing.destroy!
-      end
-    end
-
-    existing_time_period_ids =
-      existing_timings.map { |timing| timing.time_period_id.to_s }
-
-    new_time_period_ids =
-      @selected_time_period_ids - existing_time_period_ids
-
-    new_time_period_ids.each do |time_period_id|
-      @medication.medication_timings.create!(
-        time_period_id: time_period_id,
-        meal_timing: @meal_timing
-      )
-    end
+  def save_medication
+    Medications::Save.new(
+      medication: @medication,
+      attributes: medication_params,
+      time_period_ids: @selected_time_period_ids,
+      meal_timing: @meal_timing
+    ).call
   end
 end
