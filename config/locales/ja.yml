@@ -1,7 +1,11 @@
 ja:
+  common:
+    logo_alt: "medi巣"
+
   date:
     formats:
       default: "%Y年%-m月%-d日"
+      month_day: "%-m月%-d日"
 
   actions:
     create: "登録する"
@@ -10,7 +14,21 @@ ja:
     back_to_index: "一覧へ戻る"
     destroy: "削除する"
 
+  auth:
+    login: "ログイン"
+    sign_up: "新規登録"
+    sessions:
+      welcome: "medi巣へおかえりなさい"
+      no_account: "アカウントをお持ちでない方は"
+    registrations:
+      welcome: "medi巣をはじめましょう"
+      minimum_password_length: "%{count}文字以上で入力してください"
+      have_account: "すでにアカウントをお持ちですか？"
+
   home:
+    title: "今日の状況"
+    daily_message: "穏やかな一日になりますように"
+    encouragement: "少しずつ、自分のペースで。"
     medications:
       title: "今日のお薬"
       instruction: "飲んだら右の丸を押してください。もう一度押すと取り消せます。"
@@ -28,7 +46,6 @@ ja:
       detail_edit: "詳細・編集"
       register: "受診予定を登録する"
   sidebar:
-    logo_alt: "medi巣"
     welcome: "おかえりなさい"
     greeting: "%{nickname}さんの巣は"
     description: "今日も整っています"
