@@ -11,3 +11,6 @@ ja:
       not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
     registrations:
       signed_up: "アカウント登録が完了しました。"
+  errors:
+    messages:
+      not_saved: "%{resource}を保存できませんでした（エラー%{count}件）"

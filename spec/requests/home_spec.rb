@@ -124,4 +124,20 @@ RSpec.describe "ホーム画面", type: :request do
       .to eq("#{medication.name}（夕）を服用済みにする")
     expect(evening_form.at_css("span[class~='bg-white']")).to be_present
   end
+
+  it "見出しと日付とメッセージを日本語で表示する" do
+    sign_in user
+    get home_path
+
+    expect(response).to have_http_status(:ok)
+
+    html = response.parsed_body
+
+    expect(html.at_css("h1").text.strip).to eq("今日の状況")
+    expect(html.text).to include(
+      "9月11日",
+      "穏やかな一日になりますように",
+      "少しずつ、自分のペースで。"
+    )
+  end
 end

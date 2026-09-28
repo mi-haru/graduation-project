@@ -1,11 +1,11 @@
 <header class="mb-6 px-2 py-3">
   <h1 class="text-3xl font-bold text-[#1f1b15] sm:text-4xl">
-    今日の状況
+    <%= t("home.title") %>
   </h1>
 
   <p class="mt-2 text-gray-600">
-    <%= I18n.l(@today, format: "%-m月%-d日") %>
-    ・穏やかな一日になりますように
+    <%= l(@today, format: :month_day) %>
+    ・<%= t("home.daily_message") %>
   </p>
 </header>
 
@@ -21,9 +21,8 @@
       </p>
 
       <p class="mt-3 text-lg font-bold">
-        少しずつ、自分のペースで。
+        <%= t("home.encouragement") %>
       </p>
     </section>
   </div>
 </div>
-
