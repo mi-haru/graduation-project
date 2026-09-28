@@ -9,7 +9,14 @@ ja:
         immediately_before_meal: "食直前"
 
   activerecord:
+    models:
+      user: "ユーザー"
     attributes:
+      user:
+        nickname: "ユーザー名"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
       medication:
         name: "薬名"
         dosage: "1回の服用量"
@@ -25,6 +32,7 @@ ja:
     errors:
       messages:
         blank: "を入力してください"
+        too_short: "は%{count}文字以上で入力してください"
       models:
         medication:
           attributes:
