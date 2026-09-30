@@ -61,4 +61,63 @@ RSpec.describe "ユーザーの新規登録", type: :request do
     expect(alert.text).not_to match(/translation missing/i)
     expect(alert["class"].split).to include("text-red-700")
   end
+
+  it "登録済みのメールアドレスのエラーを日本語で表示する" do
+    user = create(:user)
+    attributes = attributes_for(:user, email: user.email)
+
+    expect {
+      post user_registration_path, params: { user: attributes }
+    }.not_to change(User, :count)
+
+    expect(response).to have_http_status(:unprocessable_content)
+
+    alert = response.parsed_body.at_css("#error_explanation")
+    expect(alert.text).to match(/メールアドレス\s*はすでに使用されています/)
+    expect(alert.text).not_to match(/translation missing/i)
+  end
+
+  {
+    "ユーザー名が空欄" => [
+      { nickname: "" },
+      /ユーザー名\s*を入力してください/
+    ],
+    "ユーザー名が長すぎる" => [
+      { nickname: "あ" * 51 },
+      /ユーザー名\s*は50文字以内で入力してください/
+    ],
+    "メールアドレスの形式が不正" => [
+      { email: "invalid-email" },
+      /メールアドレス\s*は正しい形式で入力してください/
+    ],
+    "パスワードが空欄" => [
+      { password: "", password_confirmation: "" },
+      /パスワード\s*を入力してください/
+    ],
+    "パスワードが長すぎる" => [
+      {
+        password: "a" * (User.password_length.max + 1),
+        password_confirmation: "a" * (User.password_length.max + 1)
+      },
+      /パスワード\s*は#{User.password_length.max}文字以内で入力してください/
+    ],
+    "確認用パスワードが一致しない" => [
+      { password_confirmation: "different-password" },
+      /パスワード（確認）\s*がパスワードと一致しません/
+    ]
+  }.each do |condition, (overrides, message)|
+    it "#{condition}場合のエラーを日本語で表示する" do
+      attributes = attributes_for(:user, **overrides)
+
+      expect {
+        post user_registration_path, params: { user: attributes }
+      }.not_to change(User, :count)
+
+      expect(response).to have_http_status(:unprocessable_content)
+
+      alert = response.parsed_body.at_css("#error_explanation")
+      expect(alert.text).to match(message)
+      expect(alert.text).not_to match(/translation missing/i)
+    end
+  end
 end
